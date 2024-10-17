@@ -1,6 +1,7 @@
 package server
 
 import (
+	"net/http"
 	"net/http/httputil"
 	"net/url"
 
@@ -8,6 +9,11 @@ import (
 	"github.com/ante-neh/Load_balancer/util"
 )
 
+type Server interface{
+	Address() string 
+	IsAlive() bool 
+	Serve(w http.ResponseWriter, r *http.Request)
+}
 func NewServer(addr string) types.Server{
 	serverUrl, err := url.Parse(addr)
 	util.HandleError(err) 
